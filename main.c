@@ -5,6 +5,9 @@
 #include <time.h>
 #include "lib.h"
 
+#define WORD_LENGTH 6
+#define GUESSES 7
+
 int main(void)
 {
     struct timespec res;                    //
