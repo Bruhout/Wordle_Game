@@ -5,8 +5,6 @@
 #include <time.h>
 #include "lib.h"
 
-#define WORD_LENGTH 6
-#define GUESSES 7
 
 int main(void)
 {
@@ -38,7 +36,13 @@ int main(void)
             fclose(guess_list);
             return -1;
         }
-        else if (in_check(user_guess , guess_list)==0) {
+
+        if (strcmp(user_guess, ".help")==0) { //Help playing the game
+            printf(EXPLANATION);
+            continue;
+        }
+
+        if (in_check(user_guess , guess_list)==0) {
             if (strcmp(user_guess, word)==0) {
                 printf("That's Correct\n");
                 fclose(guess_list);
