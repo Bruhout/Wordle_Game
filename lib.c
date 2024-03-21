@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <time.h>
 
+#define WORD_LENGTH 6
+#define GUESSES 7
+
 int get_word(char* buffer , char* filename, int index) {
     FILE* file_pointer=fopen(filename , "r");
     int count=0;
@@ -42,12 +45,12 @@ void resolve(char* user_guess, char* word, char* resolved) {
     If the letter is not in the right place, but appears elsewhere in the string, its spot is marked with a '|' in the resolved string.
     Any other characters are left untouched.
     */
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<WORD_LENGTH; i++) {
         if (user_guess[i]==word[i]) { //Right guess, right place
             resolved[i]=word[i];
         }
         else {                        //Wrong guess
-            for (int j=0; j<6; j++) {
+            for (int j=0; j<WORD_LENGTH; j++) {
                 if (word[j]==user_guess[i]) { //Check if letter appears anywhere else
                     resolved[i]='|';
                 }
@@ -65,8 +68,8 @@ int in_check(char* word, FILE* file_ptr) {
         printf("invalid file passed\n");
         return -2;
     }
-    char buffer[8];
-    while(fgets(buffer , 10 , file_ptr) != NULL) {
+    char buffer[WORD_LENGTH+2];
+    while(fgets(buffer , WORD_LENGTH+2 , file_ptr) != NULL) {
         remove_newline(buffer);
         if (strcmp(buffer, word)==0) {
             reset_ptr(file_ptr);
@@ -78,7 +81,7 @@ int in_check(char* word, FILE* file_ptr) {
 }
 
 void reset(char* resolved) {
-    for (int i=0; i<6; i++) {
+    for (int i=0; i<WORD_LENGTH; i++) {
         resolved[i]='.';
     }
 }
