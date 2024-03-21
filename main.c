@@ -5,6 +5,9 @@
 #include <time.h>
 #include "lib.h"
 
+#define WORD_LENGTH 6
+#define GUESSES 7
+
 int main(void)
 {
     struct timespec res;                    //
@@ -15,13 +18,13 @@ int main(void)
 
     FILE* guess_list=fopen("guess_list.txt", "r");
     int index=rand()%1002;
-    char word[8];
+    char word[WORD_LENGTH+2];
     get_word(word, "word_list.txt", index);
     remove_newline(word);
     //print out the answer, debugging
     //printf("%s\n", word);
     int guesses=0;
-    char user_guess[8];
+    char user_guess[WORD_LENGTH+2];
     char resolved[]="......";
     while (true) {
         printf("Enter Guess: ");
@@ -38,7 +41,7 @@ int main(void)
                 fclose(guess_list);
                 return 0;
             }
-            else if (guesses==6) {
+            else if (guesses==GUESSES) {
                 printf("You lost! The word was: %s\n", word);
                 fclose(guess_list);
                 return 1;
