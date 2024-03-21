@@ -5,9 +5,6 @@
 #include <time.h>
 #include "lib.h"
 
-#define WORD_LENGTH 6
-#define GUESSES 7
-
 int main(void)
 {
     struct timespec res;                    //
@@ -21,11 +18,14 @@ int main(void)
     char word[WORD_LENGTH+2];
     get_word(word, "word_list.txt", index);
     remove_newline(word);
-    //print out the answer, debugging
-    //printf("%s\n", word);
     int guesses=0;
     char user_guess[WORD_LENGTH+2];
-    char resolved[]="......";
+    
+    char resolved[WORD_LENGTH];            //
+    for (int i=0; i<WORD_LENGTH; i++) {    //This string before resolution looks like '.......'
+        resolved[i]='.';                   //
+    }                                      //
+    
     while (true) {
         printf("Enter Guess: ");
         scanf("%s", user_guess);
